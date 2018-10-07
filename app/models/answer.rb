@@ -9,5 +9,5 @@ class Answer < ApplicationRecord
   validates :body, length: { minimum: 5 }
 
   after_touch :set_rating
-  after_touch :set_teputation
+  after_touch :set_reputation
 end

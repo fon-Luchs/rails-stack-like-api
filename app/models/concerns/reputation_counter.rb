@@ -5,8 +5,8 @@ module ReputationCounter
   end
 
   def set_reputation
-    user.reputation.increament if rate_possitive?
-    user.reputation.decrement  if rate_negative?
+    user.reputation.increment if rate_possitive?
+    user.reputation.decrement if rate_negative?
   end
 
   def rate_possitive?

@@ -61,7 +61,7 @@ RSpec.describe QuestionsController, type: :controller do
     it { should render_template :show }
   end
 
-  describe '#search.json' do
+  describe '#ihdex.json' do
     let(:request_params) { { title: title, body: body } }
 
     before do
@@ -70,22 +70,19 @@ RSpec.describe QuestionsController, type: :controller do
         .and_return(question)
     end
 
-    before { get :search, params: request_params, format: :json }
+    before { get :index, params: request_params, format: :json }
 
-    it { should render_template :search }
+    it { should render_template :index }
   end
 
   describe 'routes test' do
     it { should route(:get, '/questions/1').to(action: :show, id: 1) }
 
+    it { should route(:get, '/questions').to(action: :index) }
+
     it { should route(:post, '/questions').to(action: :create) }
 
     it { should route(:put, '/questions/1').to(action: :update, id: 1) }
-
-    it do
-      should route(:get, '/questions/TestTitle/TestBody')
-        .to(action: :search, title: 'TestTitle', body: 'TestBody')
-    end
   end
 
   def resource_builder

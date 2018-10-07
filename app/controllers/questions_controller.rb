@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
-  def search
-    @question = QuestionsSearcher.new(resource_params).search
+  def index
+    @questions = QuestionsSearcher(params).search
   end
 
   def show

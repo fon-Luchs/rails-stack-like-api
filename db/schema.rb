@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_151909) do
+ActiveRecord::Schema.define(version: 2018_10_07_104543) do
 
   create_table "answers", force: :cascade do |t|
     t.text "body"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_151909) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "rating"
   end
 
   create_table "rates", force: :cascade do |t|
@@ -41,7 +42,6 @@ ActiveRecord::Schema.define(version: 2018_10_05_151909) do
     t.integer "rateable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "value"
     t.index ["rateable_id"], name: "index_rates_on_rateable_id"
   end
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_151909) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reputation"
   end
 
 end

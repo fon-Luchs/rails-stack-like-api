@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  include ReputationCounter
+
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :rate, as: :rateable
@@ -8,4 +10,7 @@ class Question < ApplicationRecord
 
   validates :body, presence: true
   validates :body, length: { minimum: 5 }
+
+  after_touch :set_rating
+  after_touch :set_teputation
 end

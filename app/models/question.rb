@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
+  has_many :rate, as: :rateable
 
   validates :title, presence: true
   validates :title, length: { minimum: 5 }

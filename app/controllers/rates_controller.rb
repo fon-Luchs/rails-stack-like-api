@@ -1,5 +1,6 @@
 class RatesController < ApplicationController
   before_action :set_rateable, only: :create
+  after_action :run_rate, only: :create
 
   private
 
@@ -13,5 +14,9 @@ class RatesController < ApplicationController
 
   def set_rateable
     @rateable = ModelLoader([Question, Answer], params).load_rateable
+  end
+
+  def run_rate
+    @rate.touch
   end
 end

@@ -4,8 +4,4 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
   validates :body, length: { minimum: 5 }
-
-  after_tuch :set_rating
-  ater_touch :set_user_reputation
-
 end

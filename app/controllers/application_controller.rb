@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   end
 
   def destroy
+    @message = '204 No Content'
     resource.destroy
+    render json: message, status: 204
   end
 
   def update

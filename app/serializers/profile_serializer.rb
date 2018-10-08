@@ -1,15 +1,6 @@
-class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :email, :first_name, :last_name, :self_question, :self_answers
+class ProfileSerializer < UserBaseSerializer
+  attributes :first_name, :last_name
 
-  def self_question
-    data = super
-    data[:self_question] = questions.all
-    data
-  end
-
-  def self_answers
-    data = super
-    data[:self_answers] = answers.all
-    data
-  end
+  has_many :questions, key: :self_question
+  has_many :answers, key: :self_answer
 end

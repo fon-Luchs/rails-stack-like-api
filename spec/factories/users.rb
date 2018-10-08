@@ -8,7 +8,7 @@ FactoryBot.define do
 
     password   { FFaker::Internet.password }
 
-    # reputation { 0 }
+    reputation { 0 }
 
     trait :with_auth_token do
       association :auth_token

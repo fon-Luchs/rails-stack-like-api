@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe ReputationCounter, type: :module do
+  let(:user) { create(:user) }
+
+  let(:question) { create(:question, rating: 0) }
+  
   describe '#set_rating' do
     context 'positive rate' do
       before { rate_possitive?(true) }

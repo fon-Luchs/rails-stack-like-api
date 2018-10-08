@@ -26,6 +26,8 @@ RSpec.describe ProfilesController, type: :controller do
 
   let(:permitted_params) { permit_params! params, :user }
 
+  before { sign_in user }
+
   describe '#create.json' do
     before { resource_builder }
 
@@ -34,7 +36,7 @@ RSpec.describe ProfilesController, type: :controller do
 
       before { post :create, params: params, format: :json }
 
-      it { should render_template :create }
+      it { expect(response.body).to eq(ProfileSerializer.new(user).to_json) }
     end
 
     context 'fail' do
@@ -62,6 +64,18 @@ RSpec.describe ProfilesController, type: :controller do
 
       it { should render_template :update }
     end
+  end
+
+  describe '#destroy.json' do
+    let(:header) { { Authorization: "Token #{user.auth_token}" } }
+    before { resource_builder }
+
+    before do
+      request.headers.merge! header
+      delete :destroy, format: :json
+    end
+
+    it { expect(response.body).to eq('204 No Content') }
   end
 
   describe 'routes test' do

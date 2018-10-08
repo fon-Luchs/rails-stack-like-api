@@ -8,7 +8,7 @@ RSpec.describe UsersController, type: :controller do
 
     before { get :index, format: :json }
 
-    it { should render_template :index }
+    it { expect(response.body).to eq(UserSerializer.new(user).to_json) }
   end
 
   describe '#show.json' do

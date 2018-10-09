@@ -1,9 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  let(:user) { stub_model User }
+  let(:user) { create(:user, :with_auth_token)}
 
-  before { sign_in user }
+  let(:value) { user.auth_token.value }
+
+  let(:headers) do
+     {
+       'Authorization' => "Token token=#{value}",
+       'Content-type' => 'application/json',
+       'Accept' => 'application/json'
+     }
+  end
 
   let(:answer) { stub_model Answer }
 
@@ -29,9 +37,11 @@ RSpec.describe AnswersController, type: :controller do
     context 'success' do
       before { expect(answer).to receive(:save).and_return(true) }
 
+      before { request.headers.merge!(headers) }
+
       before { post :create, params: request_params, format: :json }
 
-      it { should render_template :create }
+      it { expect(response.body).to eq(BaseAnswerSerializer.new(answer).to_json) }
     end
 
     context 'fails' do
@@ -46,11 +56,13 @@ RSpec.describe AnswersController, type: :controller do
   describe '#show.json' do
     let(:request_params) { { id: answer.id.to_s, question_id: question.id.to_s } }
 
-    before { expect(Answer).to receive(:find).with(answer.id).and_return(answer) }
+    before { expect(Answer).to receive(:find).with(answer.id.to_s).and_return(answer) }
+
+    before { request.headers.merge!(headers) }
 
     before { get :show, params: request_params, format: :json }
 
-    it { should render_template :show }
+    it { expect(response.body).to eq(BaseAnswerSerializer.new(answer).to_json) }
   end
 
   describe 'routes test' do

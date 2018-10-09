@@ -1,9 +1,15 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate!, only: :create
 
+  def create
+    super
+    render json: resource, serializer: SessionSerializer if resource.save
+  end
+
   def destroy
     @session = current_user
     @session.auth_token.destroy
+    render status: 204, json: 'No Content'
   end
 
   private

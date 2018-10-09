@@ -51,7 +51,7 @@ RSpec.describe ProfilesController, type: :controller do
   describe '#show.json' do
     before { get :create, params: params, format: :json }
 
-    it { should render_template :show }
+    it { expect(response.body).to eq(ProfileSerializer.new(user).to_json) }
   end
 
   describe '#update.json' do
@@ -62,7 +62,7 @@ RSpec.describe ProfilesController, type: :controller do
     context 'PUT' do
       before { put :update, format: :json, params: params }
 
-      it { should render_template :update }
+      it { expect(response.body).to eq(ProfileSerializer.new(user).to_json) }
     end
   end
 

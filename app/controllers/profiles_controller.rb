@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
-    resource_response
+    render json: @user, serialize: ProfileSerializer
   end
 
   private

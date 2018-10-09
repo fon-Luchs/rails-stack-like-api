@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :collection, :resource,
                 :current_user, :resource_param,
-                :render_resource
+                :resource_response
 
   before_action :authenticate!
 
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def create
     render :errors unless resource.save
-    resource_response
+    resource_response if resource.save
   end
 
   def destroy
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def update
     render :errors unless resource.update(resource_params)
-    resource_response
+    resource_response if resource.save
   end
 
   rescue_from ActionController::ParameterMissing do |exception|

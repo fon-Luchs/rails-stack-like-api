@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = Users.all.order('reputation DESC')
+    @users = User.all.order('reputation DESC')
     render json: @users, serializer: UserIndexSerializer
   end
 

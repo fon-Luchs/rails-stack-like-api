@@ -11,7 +11,7 @@ class RatesController < ApplicationController
   private
 
   def resource
-    @rate = @rateable.rate.new resource_params
+    @rate ||= @rateable.rate.new resource_params
   end
 
   def resource_params

@@ -3,22 +3,26 @@ require 'rails_helper'
 RSpec.describe ProfilesController, type: :controller do
   it { should be_a ApplicationController }
 
-  let(:user) { stub_model User }
+  let(:user) { create(:user, :with_auth_token)}
+
+  let(:value) { user.auth_token.value }
+
+  let(:headers) do
+    {
+      'Authorization' => "Token token=#{value}",
+      'Content-type' => 'application/json',
+      'Accept' => 'application/json'
+    }
+  end
 
   let(:password) { FFaker::Internet.password }
-
-  let(:email) { FFaker::Internet.email }
-
-  let(:first_name) { FFaker::Name.first_name }
-
-  let(:last_name) { FFaker::Name.last_name }
 
   let(:params) do
     { user:
       {
-        email: email,
-        first_name: first_name,
-        last_name:  last_name,
+        email: user.email,
+        first_name: user.first_name,
+        last_name:  user.last_name,
         password: password,
         password_confirmation: password
       } }
@@ -49,6 +53,8 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   describe '#show.json' do
+    before { request.headers.merge!(headers) }
+
     before { get :create, params: params, format: :json }
 
     it { expect(response.body).to eq(ProfileSerializer.new(user).to_json) }
@@ -56,6 +62,8 @@ RSpec.describe ProfilesController, type: :controller do
 
   describe '#update.json' do
     before { resource_builder }
+
+    before { request.headers.merge!(headers) }
 
     before { expect(user).to receive(:update).and_return(true) }
 
@@ -67,13 +75,11 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   describe '#destroy.json' do
-    let(:header) { { Authorization: "Token #{user.auth_token}" } }
     before { resource_builder }
 
-    before do
-      request.headers.merge! header
-      delete :destroy, format: :json
-    end
+    before { request.headers.merge!(headers) }
+
+    before { delete :destroy, format: :json }
 
     it { expect(response.body).to eq('204 No Content') }
   end

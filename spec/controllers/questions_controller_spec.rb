@@ -1,9 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
-  let(:question) { stub_model Question }
+  let(:question) { stub_model Question, user_id: user.id }
 
   let(:user)     { create(:user, :with_auth_token) }
+
+  let(:value) { user.auth_token.value }
+
+  let(:headers) do
+    {
+      'Authorization' => "Token token=#{value}",
+      'Content-type' => 'application/json',
+      'Accept' => 'application/json'
+    }
+  end
 
   let(:title)    { FFaker::LoremUA.phrase }
 
@@ -15,6 +25,8 @@ RSpec.describe QuestionsController, type: :controller do
     }
   end
 
+  before { sign_in user }
+
   let(:permitted_params) { permit_params! params, :question }
 
   let(:request_params)   { { question: { title: title, body: body, user_id: user.id.to_s } } }
@@ -25,13 +37,17 @@ RSpec.describe QuestionsController, type: :controller do
     context 'success' do
       before { expect(question).to receive(:save).and_return(true) }
 
+      before { request.headers.merge!(headers) }
+
       before { post :create, params: request_params, format: :json }
 
-      it { should render_template :create }
+      it { expect(response.body).to eq(QuestionRelativeSerializer.new(question).to_json) }
     end
 
     context 'fails' do
       before { expect(question).to receive(:save).and_return(false) }
+
+      before { request.headers.merge!(headers) }
 
       before { post :create, params: request_params, format: :json }
 
@@ -47,18 +63,22 @@ RSpec.describe QuestionsController, type: :controller do
     before { expect(question).to receive(:update).and_return(true) }
 
     context 'PUT' do
+      before { request.headers.merge!(headers) }
+
       before { put :update, params: request_params, format: :json }
 
-      it { should render_template :update }
+      it { expect(response.body).to eq(QuestionRelativeSerializer.new(question).to_json) }
     end
   end
 
   describe '#show.json' do
-    before { expect(Question).to receive(:find).with(question.id).and_return(question) }
+    before { expect(Question).to receive(:find).with(question.id.to_s).and_return(question) }
+
+    before { request.headers.merge!(headers) }
 
     before { get :show, params: { id: question.id.to_s }, format: :json }
 
-    it { should render_template :show }
+    it { expect(response.body).to eq(QuestionRelativeSerializer.new(question).to_json) }
   end
 
   describe '#ihdex.json' do
@@ -69,6 +89,8 @@ RSpec.describe QuestionsController, type: :controller do
         .with(request_params).with(no_args)
         .and_return(question)
     end
+
+    before { request.headers.merge!(headers) }
 
     before { get :index, params: request_params, format: :json }
 

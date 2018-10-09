@@ -10,14 +10,17 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    render status: 403 unless question.user_id == current_user.id
-    super
+    if resource.user_id == current_user.id
+      super
+    else
+      render status: 403, json: 'Forbidden'
+    end
   end
 
   private
 
   def resource
-    @question = current_user.questions.new resource_params
+    @question ||= current_user.questions.new resource_params
   end
 
   def resource_params

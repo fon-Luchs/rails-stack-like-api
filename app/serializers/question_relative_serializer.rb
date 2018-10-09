@@ -1,5 +1,5 @@
 class QuestionRelativeSerializer < BaseQuestionAttrSerializer
-  attributes :body, :rate, :author, :answers
+  attributes :body, :rating, :answers
 
   belongs_to :user, key: :author, serializer: AuthorSerializer
   has_many :answers, serialize: BaseAnswerSerializer

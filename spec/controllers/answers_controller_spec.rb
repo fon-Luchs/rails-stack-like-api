@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user, :with_auth_token)}
 
@@ -55,6 +56,7 @@ RSpec.describe AnswersController, type: :controller do
       it { should render_template :errors }
     end
   end
+
   describe '#show.json' do
     let(:request_params) { { id: answer.id.to_s, question_id: question.id.to_s } }
 
@@ -66,11 +68,13 @@ RSpec.describe AnswersController, type: :controller do
 
     it { expect(response.body).to eq(BaseAnswerSerializer.new(answer).to_json) }
   end
+
   describe 'routes test' do
     it { should route(:get, '/questions/1/answers').to(action: :show, question_id: 1) }
 
     it { should route(:post, '/questions/1/answers').to(action: :create, question_id: 1) }
   end
+
   def resource_builder
     expect(user).to receive_message_chain(:answers, :new)
       .with(no_args).with(permitted_params)

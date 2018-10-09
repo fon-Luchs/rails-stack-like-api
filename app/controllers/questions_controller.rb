@@ -1,10 +1,12 @@
 class QuestionsController < ApplicationController
   def index
     @questions = QuestionsSearcher(params).search
+    render json: @questions, serialize: QuestionRelativeSerializer
   end
 
   def show
     @question = Question.find(params[:id])
+    render json: @question, serialize: QuestionRelativeSerializer
   end
 
   def update
@@ -20,5 +22,9 @@ class QuestionsController < ApplicationController
 
   def resource_params
     params.require(:question).permit(:title, :body)
+  end
+
+  def resource_response
+    render json: resource, serialize: QuestionRelativeSerializer
   end
 end

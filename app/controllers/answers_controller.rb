@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   def show
     @answer = Answer.find(params[:id])
+    render json: @answer, serialize: BaseAnswerSerializer
   end
 
   private
@@ -11,5 +12,9 @@ class AnswersController < ApplicationController
 
   def resource_params
     params.require(:answer).permit(:body).merge(question_id: params[:id])
+  end
+
+  def resource_response
+    render json: resource, serialize: BaseAnswerSerializer
   end
 end

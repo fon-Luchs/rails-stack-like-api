@@ -18,6 +18,16 @@ class RatesController < ApplicationController
     params.require(:rate).permit(:kind)
   end
 
+  def resource_response
+    serializer_class = if @rateable.class == Question
+                         QuestionRelativeSerializer
+                       else
+                         BaseAnswerSerializer
+                       end
+
+    render json: resource, serialize: serializer_class
+  end
+
   def set_rateable
     @rateable = ModelLoader([Question, Answer], params).load_rateable
   end

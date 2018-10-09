@@ -17,6 +17,6 @@ class ProfilesController < ApplicationController
   end
 
   def resource_response
-    render json: @resource, root: false
+    render json: resource, serialize: ProfileSerializer
   end
 end

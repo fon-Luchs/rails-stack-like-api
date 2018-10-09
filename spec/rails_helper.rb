@@ -44,6 +44,7 @@ RSpec.configure do |config|
   config.after(:each) { DatabaseRewinder.clean }
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  
   config.include Authentication
   config.include Permitter
   config.include FactoryBot::Syntax::Methods

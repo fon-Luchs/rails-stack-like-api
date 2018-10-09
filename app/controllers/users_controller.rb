@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = Users.all
-    render json: @users
+    @users = Users.all.order('reputation DESC')
   end
 
   def show

@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Rate, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:rateable) }
+
+  it { should define_enum_for(:kind) }
 end

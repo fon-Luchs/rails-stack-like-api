@@ -7,6 +7,11 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
   end
 
+  def update
+    render status: 403 unless question.user_id == current_user.id
+    super
+  end
+
   private
 
   def resource

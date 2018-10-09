@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_073402) do
+ActiveRecord::Schema.define(version: 2018_10_09_075912) do
 
   create_table "answers", force: :cascade do |t|
     t.text "body"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_073402) do
     t.integer "rateable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["rateable_id"], name: "index_rates_on_rateable_id"
   end
 

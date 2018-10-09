@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_one :auth_token, dependent: :destroy
   has_many :questions
   has_many :answers
-  has_many :rates
+  has_many :rate
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

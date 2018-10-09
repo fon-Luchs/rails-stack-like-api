@@ -2,6 +2,12 @@ class RatesController < ApplicationController
   before_action :set_rateable, only: :create
   after_action :run_rate, only: :create
 
+  def create
+    render status: 403 unless Rate.where(rate_params).nil?
+    render status: 403 if tateable.user_id == current_user.id
+    super
+  end
+
   private
 
   def resource
@@ -18,5 +24,9 @@ class RatesController < ApplicationController
 
   def run_rate
     @rate.touch
+  end
+
+  def rate_params
+    { rateable_id: rateable.id, user_id: current_user.id }
   end
 end

@@ -1,11 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate!, only: :create
 
-  def create
-    super
-    render json: resource, serializer: SessionSerializer if resource.save
-  end
-
   def destroy
     @session = current_user
     @session.auth_token.destroy
@@ -13,11 +8,16 @@ class SessionsController < ApplicationController
   end
 
   private
+
   def resource
     @session ||= Session.new resource_params
   end
 
   def resource_params
     params.require(:session).permit(:email, :password)
+  end
+
+  def resource_response
+    render json: resource, serializer: SessionSerializer
   end
 end

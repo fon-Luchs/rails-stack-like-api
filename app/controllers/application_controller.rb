@@ -10,8 +10,11 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
 
   def create
-    render :errors unless resource.save
-    resource_response if resource.save
+    if resource.save
+      resource_response
+    else
+      render :errors
+    end
   end
 
   def destroy
@@ -21,8 +24,11 @@ class ApplicationController < ActionController::Base
   end
 
   def update
-    render :errors unless resource.update(resource_params)
-    resource_response if resource.save
+    if resource.update(resource_params)
+      resource_response
+    else
+      render :errors
+    end
   end
 
   rescue_from ActionController::ParameterMissing do |exception|

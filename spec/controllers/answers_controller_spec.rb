@@ -6,11 +6,11 @@ RSpec.describe AnswersController, type: :controller do
   let(:value) { user.auth_token.value }
 
   let(:headers) do
-     {
-       'Authorization' => "Token token=#{value}",
-       'Content-type' => 'application/json',
-       'Accept' => 'application/json'
-     }
+    {
+      'Authorization' => "Token token=#{value}",
+      'Content-type' => 'application/json',
+      'Accept' => 'application/json'
+    }
   end
 
   let(:answer) { stub_model Answer }

@@ -51,3 +51,47 @@ curl -H 'Accept: application/json' \
           localhost:3000/profile
 
 ```
+
+### Sign In
+
+```
+curl -H 'Accept: application/json' \
+     -d 'session[email]=john@mcclane.com&session[password]=superhero' \
+     localhost:3000/session
+```
+
+### Show Profile
+
+```
+  curl -H 'Accept: application/json' \
+       -H 'Authorization: Token token="oi6iweKhZy8ijZxLradjQZJu"' \
+            localhost:3000/profile
+```
+
+### Create Question
+
+```
+  curl -H 'Accept: application/json' \
+       -H 'Authorization: Token token="oi6iweKhZy8ijZxLradjQZJu"' \
+       -d 'question[title]=Winter is Coming?&question[body]=Dead is ready' \
+       localhost:3000/questions
+```
+
+### Show Question
+
+```
+ curl -H 'Accept: application/json' \
+      -H 'Authorization: Token token="oi6iweKhZy8ijZxLradjQZJu"' \
+      localhost:3000/profile
+
+```
+
+### Create Answer
+
+```
+ curl -H 'Accept: application/json' \
+      -H 'Authorization: Token token="oi6iweKhZy8ijZxLradjQZJu"' \
+      -d 'answer[body]=Nu takoe' \
+      localhost:3000/questions/1/answers
+
+```

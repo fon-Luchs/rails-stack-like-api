@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
+    resource_response
   end
 
   private
@@ -13,5 +14,9 @@ class ProfilesController < ApplicationController
 
   def resource_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+  end
+
+  def resource_response
+    render json: @resource, root: false
   end
 end

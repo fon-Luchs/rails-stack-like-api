@@ -1,13 +1,13 @@
 class AnswersController < ApplicationController
   def show
     @answer = Answer.find(params[:id])
-    render json: @answer, serialize: BaseAnswerSerializer
+    render json: @answer, serializer: BaseAnswerSerializer
   end
 
   private
 
   def resource
-    @answer = current_user.answers.new resource_params
+    @answer ||= current_user.answers.new resource_params
   end
 
   def resource_params
@@ -15,6 +15,6 @@ class AnswersController < ApplicationController
   end
 
   def resource_response
-    render json: resource, serialize: BaseAnswerSerializer
+    render json: resource, serializer: BaseAnswerSerializer
   end
 end

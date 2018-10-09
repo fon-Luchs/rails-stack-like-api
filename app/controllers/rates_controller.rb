@@ -25,7 +25,7 @@ class RatesController < ApplicationController
                          BaseAnswerSerializer
                        end
 
-    render json: resource, serialize: serializer_class
+    render json: resource, serializer: serializer_class
   end
 
   def set_rateable

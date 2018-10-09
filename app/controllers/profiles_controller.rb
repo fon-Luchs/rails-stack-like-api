@@ -3,13 +3,13 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
-    render json: @user, serialize: ProfileSerializer
+    render json: @user, serializer: ProfileSerializer
   end
 
   private
 
   def resource
-    @user = User.new resource_params
+    @user ||= User.new resource_params
   end
 
   def resource_params
@@ -17,6 +17,6 @@ class ProfilesController < ApplicationController
   end
 
   def resource_response
-    render json: resource, serialize: ProfileSerializer
+    render json: resource, serializer: ProfileSerializer
   end
 end

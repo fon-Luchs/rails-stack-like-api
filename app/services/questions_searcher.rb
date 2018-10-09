@@ -10,6 +10,6 @@ class QuestionsSearcher
     collection = Question.all
     collection = collection.where(' title ILIKE ?', "%#{title}%", 'AND', 'body ILIKE ?', "%#{body}")
     # CONDITITONS?
-    collection
+    collection.order('rating DESC')
   end
 end

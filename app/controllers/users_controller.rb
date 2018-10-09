@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = Users.all
+    @users = Users.all.order('reputation DESC')
   end
 
   def show

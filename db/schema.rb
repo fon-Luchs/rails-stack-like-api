@@ -10,50 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_075912) do
-
-  create_table "answers", force: :cascade do |t|
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "question_id"
-    t.integer "rating", default: 0
-  end
-
-  create_table "auth_tokens", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "rating", default: 0
-  end
-
-  create_table "rates", force: :cascade do |t|
-    t.integer "kind"
-    t.integer "rateable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["rateable_id"], name: "index_rates_on_rateable_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "reputation", default: 0
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end

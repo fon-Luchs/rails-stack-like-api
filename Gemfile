@@ -12,7 +12,6 @@ gem 'bootsnap', require: false
 gem 'draper'
 gem 'kaminari'
 gem 'email_validator'
-gem 'active_model_serializers'
 
 group :development, :test do
   gem 'rspec-rails'

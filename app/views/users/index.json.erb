@@ -1,0 +1,7 @@
+<%= sanitize collection.decorate(context:
+{
+  id: :id, email: :email, reputation: :reputation,
+  name: :name, questions_count: :questions_count,
+  answers_count: :questions_count
+}
+).to_json %>

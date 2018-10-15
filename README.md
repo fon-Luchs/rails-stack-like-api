@@ -56,7 +56,7 @@ curl -H 'Accept: application/json' \
 
 ```
 curl -H 'Accept: application/json' \
-     -d 'session[email]=john@mcclane.com&session[password]=superhero' \
+     -d 'session[email]=john@mcclane.com&session[password]=123456' \
      localhost:3000/session
 ```
 
@@ -64,6 +64,37 @@ curl -H 'Accept: application/json' \
 
 ```
   curl -H 'Accept: application/json' \
-       -H 'Authorization: Token token="oi6iweKhZy8ijZxLradjQZJu"' \
-            localhost:3000/profile
+       -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+       localhost:3000/profile
+```
+
+### Update Profile
+
+```
+curl -H 'Accept: application/json' \
+            -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+            -d 'user[first_name]=Jarry&user[last_name]=Smith' \
+            -X PUT localhost:3000/profile
+
+curl -H 'Accept: application/json' \
+            -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+            -d 'user[first_name]=John& \
+            -X PATCH localhost:3000/profile
+```
+
+### Show User
+
+```
+  curl -H 'Accept: application/json' \
+       -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+       localhost:3000/users/:id
+
+```
+
+### Show Users
+
+```
+  curl -H 'Accept: application/json' \
+       -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+       localhost:3000/users/
 ```

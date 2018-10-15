@@ -1,1 +1,6 @@
-<%= sanitize resource.decorate.to_json %>
+<%= sanitize resource.decorate(context: 
+{
+  id: :id, email: :email, first_name: :first_name, last_name: :last_name,
+  reputation: :reputation, self_questions: [:self_questions], self_answers: [:self_answers]
+}
+).to_json %>

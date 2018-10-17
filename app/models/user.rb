@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_one :auth_token, dependent: :destroy
+  has_many :questions
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

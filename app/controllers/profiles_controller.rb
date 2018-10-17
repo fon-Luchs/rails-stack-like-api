@@ -3,10 +3,6 @@ class ProfilesController < BaseController
 
   before_action :build_resource, only: :create
 
-  def show
-    @profile = current_user
-  end
-
   private
 
   def build_resource

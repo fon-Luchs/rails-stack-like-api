@@ -1,18 +1,13 @@
 class UserDecorator < Draper::Decorator
   delegate_all
+  decorates_associations :questions, context: { id: :id, title: :title, rating: :rating }
 
   def name
     [first_name, last_name].join(' ')
   end
 
   def self_questions
-    [
-      {
-        id: 123,
-        title: 'Dread',
-        rating: -3
-      }
-    ]
+    questions
   end
 
   def self_answers
@@ -39,7 +34,7 @@ class UserDecorator < Draper::Decorator
       name: name,
       self_questions: self_questions,
       self_answers: self_answers,
-      questions_count: 1,
+      questions_count: object.questions.count,
       answers_count: 0,
       answered_questions: answered_questions
     }

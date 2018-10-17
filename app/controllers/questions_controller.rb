@@ -16,6 +16,10 @@ class QuestionsController < BaseController
   end
 
   def collection
-    @questions = QuestionSearcher.new(params).search
+    @questions = QuestionSearcher.new(search_params).search
+  end
+
+  def search_params
+    params.permit(:title, :body)
   end
 end

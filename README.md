@@ -48,7 +48,7 @@ rails s
 curl -H 'Accept: application/json' \
      -d 'user[email]=john@mcclane.com&user[password]=123456&user[password_confirmation]=123456' \
      -d 'user[first_name]=Ibrahim&user[last_name]=Nurglit' \
-     localhost:3000/profile
+      localhost:3000/profile
 
 ```
 
@@ -57,7 +57,7 @@ curl -H 'Accept: application/json' \
 ```
 curl -H 'Accept: application/json' \
      -d 'session[email]=john@mcclane.com&session[password]=123456' \
-     localhost:3000/session
+      localhost:3000/session
 ```
 
 ### Show Profile
@@ -65,7 +65,7 @@ curl -H 'Accept: application/json' \
 ```
 curl -H 'Accept: application/json' \
      -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-     localhost:3000/profile
+      localhost:3000/profile
 ```
 
 ### Update Profile
@@ -87,7 +87,7 @@ curl -H 'Accept: application/json' \
 ```
 curl -H 'Accept: application/json' \
      -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-     localhost:3000/users/:id
+      localhost:3000/users/:id
 
 ```
 
@@ -96,7 +96,7 @@ curl -H 'Accept: application/json' \
 ```
 curl -H 'Accept: application/json' \
      -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-     localhost:3000/users/
+      localhost:3000/users/
 ```
 
 ### Question Create
@@ -113,7 +113,7 @@ curl -H 'Accept: application/json' \
 ```
 curl -H 'Accept: application/json' \
      -H 'Authorization: Token token="MBbPPBUW6CREp5dejuTqFjqY"' \
-      localhost:3000/questions/3
+      localhost:3000/questions/:id
 
 ```
 
@@ -132,7 +132,7 @@ curl -H 'Accept: application/json' \
 
 ```
 curl -H 'Accept: application/json' \
-          -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-          localhost:3000/questions?title=title&body=body!
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+      localhost:3000/questions?title=title'&'body=body!
 ```
 

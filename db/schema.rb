@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_202913) do
+ActiveRecord::Schema.define(version: 2018_10_17_174643) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string "body"
+    t.integer "user_id"
+    t.integer "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "value"

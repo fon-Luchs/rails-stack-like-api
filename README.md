@@ -60,7 +60,7 @@ curl -H 'Accept: application/json' \
       localhost:3000/session
 ```
 
-### Show Profile
+### Profile Show
 
 ```
 curl -H 'Accept: application/json' \
@@ -68,7 +68,7 @@ curl -H 'Accept: application/json' \
       localhost:3000/profile
 ```
 
-### Update Profile
+### Profile Update
 
 ```
 curl -H 'Accept: application/json' \
@@ -82,7 +82,7 @@ curl -H 'Accept: application/json' \
      -X PATCH localhost:3000/profile
 ```
 
-### Show User
+### User Show
 
 ```
 curl -H 'Accept: application/json' \
@@ -91,7 +91,7 @@ curl -H 'Accept: application/json' \
 
 ```
 
-### Show Users
+### User Index
 
 ```
 curl -H 'Accept: application/json' \
@@ -136,3 +136,21 @@ curl -H 'Accept: application/json' \
       localhost:3000/questions?title=title'&'body=body!
 ```
 
+### Answer Create
+
+```
+curl -H 'Accept: application/json' \
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+     -d 'answer[body]=You never know that' \
+      localhost:3000/questions/:id/answers
+
+```
+
+### Answer Index
+
+```
+curl -H 'Accept: application/json' \
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+      localhost:3000/questions/:id/answers
+
+```

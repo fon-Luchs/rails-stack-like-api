@@ -1,27 +1,17 @@
 class UserDecorator < Draper::Decorator
   delegate_all
   decorates_associations :questions, context: { id: :id, title: :title, rating: :rating }
+  decorates_associations :answers, context: { id: :id, body: :body, rating: :rating }
 
   def name
     [first_name, last_name].join(' ')
   end
 
-  def self_questions
-    questions
-  end
-
-  def self_answers
-    []
-  end
-
   def answered_questions
-    [
-      {
-        id: 321,
-        title: 'What\'s going on?',
-        reputation: 347
-      }
-    ]
+    answers_arr = answers
+    ans_question = []
+    answers_arr.each { |a| ans_question << a.question }
+    ans_question
   end
 
   def params
@@ -32,10 +22,10 @@ class UserDecorator < Draper::Decorator
       last_name: object.last_name,
       reputation: 82,
       name: name,
-      self_questions: self_questions,
-      self_answers: self_answers,
+      self_questions: questions,
+      self_answers: answers,
       questions_count: object.questions.count,
-      answers_count: 0,
+      answers_count: object.answers.count,
       answered_questions: answered_questions
     }
   end

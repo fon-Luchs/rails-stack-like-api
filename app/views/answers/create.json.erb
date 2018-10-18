@@ -1,0 +1,6 @@
+<%= sanitize resource.decorate(context:
+{
+  id: :id, body: :body, rating: :rating,
+  author: :author
+}
+).to_json%>

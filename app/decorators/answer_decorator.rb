@@ -1,7 +1,6 @@
-class QuestionDecorator < Draper::Decorator
+class AnswerDecorator < Draper::Decorator
   delegate_all
   decorates_associations :user
-  decorates_associations :answers, context: { id: :id, body: :body, rating: :rating }
 
   def author
     user = User.find(object.user_id).decorate if user.nil?
@@ -15,11 +14,9 @@ class QuestionDecorator < Draper::Decorator
   def params
     {
       id: object.id,
-      title: object.title,
       body: object.body,
       rating: 133,
       author: author,
-      answers: answers
     }
   end
 

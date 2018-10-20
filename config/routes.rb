@@ -7,5 +7,5 @@ Rails.application.routes.draw do
     resources :answers, only: [:create, :index]
   end
 
-  post 'answers/:answers_id/rate', to: 'rates#create', modules: :answers
+  post 'answers/:answer_id/rate', to: 'rates#create'
 end

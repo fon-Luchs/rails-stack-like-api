@@ -24,7 +24,7 @@ class RatesController < BaseController
   end
 
   def run_rate
-    rate_counter = RateCounter.new(resource).set_counter
+    RateCounter.new(resource).set_counter
   end
 
   def rate_params

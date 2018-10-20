@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_174643) do
+ActiveRecord::Schema.define(version: 2018_10_19_110521) do
 
   create_table "answers", force: :cascade do |t|
     t.string "body"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_174643) do
     t.integer "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rating"
   end
 
   create_table "auth_tokens", force: :cascade do |t|
@@ -33,6 +34,17 @@ ActiveRecord::Schema.define(version: 2018_10_17_174643) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rating"
+  end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer "kind"
+    t.integer "rateable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.string "rateable_type"
+    t.index ["rateable_id"], name: "index_rates_on_rateable_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_174643) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reputation"
   end
 
 end

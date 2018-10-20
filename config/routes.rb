@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resource :profile, only: [:create, :show, :update, :destroy]
   resources :users, only: [:show, :index]
   resources :questions, only: [:show, :index, :create, :update] do
+    resource :rate, only: :create
     resources :answers, only: [:create, :index]
   end
+
+  post 'answers/:answers_id/rate', to: 'rates#create', modules: :answers
 end

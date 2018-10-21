@@ -20,7 +20,7 @@ class UserDecorator < Draper::Decorator
       email: object.email,
       first_name: object.first_name,
       last_name: object.last_name,
-      reputation: 82,
+      reputation: object.reputation,
       name: name,
       self_questions: questions,
       self_answers: answers,

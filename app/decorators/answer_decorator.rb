@@ -6,7 +6,7 @@ class AnswerDecorator < Draper::Decorator
     user = User.find(object.user_id).decorate if user.nil?
     {
       id: user.id,
-      reputation: 32,
+      reputation: user.reputation,
       name: user.name
     }
   end
@@ -15,8 +15,8 @@ class AnswerDecorator < Draper::Decorator
     {
       id: object.id,
       body: object.body,
-      rating: 133,
-      author: author,
+      rating: object.rating,
+      author: author
     }
   end
 

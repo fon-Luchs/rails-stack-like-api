@@ -112,7 +112,7 @@ curl -H 'Accept: application/json' \
 
 ```
 curl -H 'Accept: application/json' \
-     -H 'Authorization: Token token="MBbPPBUW6CREp5dejuTqFjqY"' \
+     -H 'Authorization: Token token="XXXX-YYYYY-ZZZZZ"' \
       localhost:3000/questions/:id
 
 ```
@@ -153,4 +153,22 @@ curl -H 'Accept: application/json' \
      -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
       localhost:3000/questions/:id/answers
 
+```
+
+### Rate Answer create
+
+```
+curl -H 'Accept: application/json' \
+          -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+          -d 'rate[kind]=positibe' \
+           localhost:3000/answers/:id/rate
+```
+
+### Rate Question create
+
+```
+curl -H 'Accept: application/json' \
+          -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+          -d 'rate[kind]=positibe' \
+           localhost:3000/questions/:id/rate
 ```

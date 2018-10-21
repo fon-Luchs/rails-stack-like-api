@@ -1,11 +1,12 @@
 class RateCounter
   def initialize(resource = nil)
     @rate = resource
-    @user = User.find(@rate.user_id)
     @klass = @rate.rateable_type.constantize
+    @parent = @klass.find(@rate.rateable_id)
+    @user = User.find(@parent.user_id)
   end
 
-  def set_counter
+  def set_counter!
     set_rating
     set_reputation
   end
@@ -13,9 +14,9 @@ class RateCounter
   private
 
   def set_rating
-    @klass.increment(:rating) if @rate.positive?
-    @klass.decrement(:rating) if @rate.negative?
-    @klass.save
+    @parent.increment(:rating) if @rate.positive?
+    @parent.decrement(:rating) if @rate.negative?
+    @parent.save
   end
 
   def set_reputation

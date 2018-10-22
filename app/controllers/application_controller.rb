@@ -30,16 +30,4 @@ class ApplicationController < ActionController::Base
       @current_user = User.joins(:auth_token).find_by auth_tokens: { value: token }
     end
   end
-
-  def render_errors(errors, status)
-    render json: { errors: Array(errors) }, status: status
-  end
-
-  def render_403(errors)
-    render_errors(errors, 403)
-  end
-
-  def render_204(errors)
-    render_errors(errors, 204)
-  end
 end

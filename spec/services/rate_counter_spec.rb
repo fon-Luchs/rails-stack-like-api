@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe RateCounter do
-  let(:answer) { stub_model Answer, rating: 0 }
-
-  let(:user) { stub_model User, reputation: 0 }
+  let(:answer) { create(:answer) }
 
   let(:rate) do
-    stub_model Rate, user: user, rateable_id: answer.id,
-    rateable_type: answer.class.name, kind: 'positive'
+    create(
+      :rate, id: 1, user: answer.user,
+      rateable_id: answer.id,
+      rateable_type: answer.class.name
+    )
   end
 
   let(:rate_counter) { RateCounter.new rate }
@@ -24,14 +25,57 @@ RSpec.describe RateCounter do
     end
 
     it do
+      expect(rate_counter.instance_variable_get(:@parent))
+        .to eq(answer)
+    end
+
+    it do
       expect(rate_counter.instance_variable_get(:@klass))
         .to eq(rate.rateable_type.constantize)
     end
   end
 
   describe '#set_reputation' do
-    before { expect(rate).to receive(:positive?).and_return(true) }
+    context '.increment' do
+      before { expect(rate).to receive(:positive?).and_return(true) }
 
-    it { should change(user, :reputation).by(1) }
+      before do
+        expect(answer).to receive(:increment).with(:rating)
+      end
+
+      it { expect { answer }.to change { answer.rating }.by(1) }
+    end
+
+    context '.decrement' do
+      before { expect(rate).to receive(:positive?).and_return(false) }
+
+      before do
+        expect(answer).to receive(:increment).with(:rating)
+      end
+
+      it { expect { answer }.to change { answer.rating }.by(1) }
+    end
+  end
+
+  describe '#set_rating' do
+    context '.increment' do
+      before { expect(rate).to receive(:positive?).and_return(true) }
+
+      before do
+        expect(rate.user).to receive(:increment).with(:reputation)
+      end
+
+      it { expect { rate.user }.to change { rate.user.reputation }.by(1) }
+    end
+
+    context '.decrement' do
+      before { expect(rate).to receive(:positive?).and_return(false) }
+
+      before do
+        expect(rate.user).to receive(:increment).with(:reputation)
+      end
+
+      it { expect { rate.user }.to change { rate.user.reputation }.by(1) }
+    end
   end
 end

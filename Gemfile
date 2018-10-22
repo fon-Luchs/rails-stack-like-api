@@ -14,6 +14,7 @@ gem 'kaminari'
 gem 'email_validator'
 
 group :development, :test do
+  gem 'simplecov'
   gem 'rspec-rails'
   gem 'pry-byebug'
   gem 'factory_bot_rails'

@@ -18,3 +18,5 @@
 !/tmp/.keep
 
 .DS_Store
+
+coverage/

@@ -5,7 +5,7 @@
 ### Clone repository
 
 ```
-git clone https://github.com/Alexbaboshyn/rails-stack-like-api
+git clone https://github.com/fon-Luchs/rails-stack-like-api.git
 ```
 
 ### Install gems
@@ -121,10 +121,10 @@ curl -H 'Accept: application/json' \
 
 ```
 curl -H 'Accept: application/json' \
-          -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-          -d 'question[title]=How would your country change if everyone, regardless of age, could vote?' \
-          -d 'question[body]=You never know, you never know...' \
-          -X PUT localhost:3000/questions/:id
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+     -d 'question[title]=How would your country change if everyone, regardless of age, could vote?' \
+     -d 'question[body]=You never know, you never know...' \
+     -X PUT localhost:3000/questions/:id
 
 ```
 
@@ -159,16 +159,26 @@ curl -H 'Accept: application/json' \
 
 ```
 curl -H 'Accept: application/json' \
-          -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-          -d 'rate[kind]=positibe' \
-           localhost:3000/answers/:id/rate
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+     -d 'rate[kind]=positibe' \
+      localhost:3000/answers/:id/rate
+
+curl -H 'Accept: application/json' \
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+     -d 'rate[kind]=negative' \
+      localhost:3000/answers/:id/rate
 ```
 
 ### Rate Question create
 
 ```
 curl -H 'Accept: application/json' \
-          -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
-          -d 'rate[kind]=positibe' \
-           localhost:3000/questions/:id/rate
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+     -d 'rate[kind]=positibe' \
+      localhost:3000/questions/:id/rate
+
+curl -H 'Accept: application/json' \
+     -H 'Authorization: Token token="XXXX-YYYY-ZZZZ"' \
+     -d 'rate[kind]=negative' \
+      localhost:3000/questions/:id/rate
 ```

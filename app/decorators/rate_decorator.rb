@@ -30,11 +30,16 @@ class RateDecorator < Draper::Decorator
     }
   end
 
-  def as_json(*args)
-    if @context[:type] == 'Answer'
+  def show_interface(type)
+    case type
+    when 'Answer'
       answer_params
-    else
+    when 'Question'
       question_params
     end
+  end
+
+  def as_json(*args)
+    show_interface(@context[:type])
   end
 end

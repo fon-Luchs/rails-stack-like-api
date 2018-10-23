@@ -13,7 +13,7 @@ RSpec.describe RatesController, type: :controller do
     )
   end
 
-  let(:params) { { rate: { kind: 'positive' } } }
+  let(:params) { { rate: { kind: 'positive', user: user } } }
 
   let(:permitted_params) { permit_params! params, :rate }
 
@@ -28,7 +28,7 @@ RSpec.describe RatesController, type: :controller do
   end
 
   describe '#create.json' do
-    let(:rate_builder) { RateBuilder.new user, request_params, permitted_params }
+    let(:rate_builder) { RateBuilder.new user, controller_params, permitted_params }
 
     let(:request_params) do
       {
@@ -37,9 +37,19 @@ RSpec.describe RatesController, type: :controller do
       }
     end
 
+    let(:controller_params) do
+      ActionController::Parameters.new({
+        rate: ActionController::Parameters.new({kind: 'positive'}),
+        answer_id: answer.id.to_s,
+        format: 'json',
+        controller: 'rates',
+        action: 'create'
+      })
+    end
+
     before do
       expect(RateBuilder).to receive(:new)
-        .with(user, request_params, permitted_params)
+        .with(user, controller_params, permitted_params)
         .and_return(rate_builder)
     end
 

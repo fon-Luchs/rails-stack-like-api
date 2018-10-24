@@ -1,6 +1,14 @@
 class QuestionsController < BaseController
   before_action :build_resource, only: :create
 
+  def update
+    if current_user.id == resource.id
+      super
+    else
+      render errors: 'FORBBIDEN', status: 403
+    end
+  end
+
   private
 
   def build_resource

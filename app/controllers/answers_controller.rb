@@ -16,6 +16,6 @@ class AnswersController < BaseController
   end
 
   def collection
-    @answers = @question.answers
+    @answers = @question.answers.order('rating DESC')
   end
 end

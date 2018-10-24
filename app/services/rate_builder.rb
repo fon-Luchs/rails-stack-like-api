@@ -7,9 +7,12 @@ class RateBuilder
   end
 
   def build!
-    check_rate
     rate = @parent.rate.new @permitted_params
     rate
+  end
+
+  def check_rate
+    Rate.exists?(rate_params) && @parent.user_id == @current_user.id
   end
 
   private
@@ -25,22 +28,5 @@ class RateBuilder
       user_id: @current_user.id,
       rateable_type: @parent.class.name
     }
-  end
-
-  def check_rate
-    render_403('Forbidden') && return if Rate.exists?(rate_params)
-    render_403('Forbidden') && return if @parent.user_id == @current_user.id
-  end
-
-  def render_errors(errors, status)
-    render json: { errors: Array(errors) }, status: status
-  end
-
-  def render_403(errors)
-    render_errors(errors, 403)
-  end
-
-  def render_204(errors)
-    render_errors(errors, 204)
   end
 end

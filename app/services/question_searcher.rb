@@ -8,6 +8,6 @@ class QuestionSearcher
 
   def search
     collection = Question.where('title LIKE ? AND body LIKE ?', "%#{title}%", "%#{body}%")
-    collection
+    collection.order('rating DESC')
   end
 end

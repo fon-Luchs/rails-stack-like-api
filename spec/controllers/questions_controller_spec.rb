@@ -70,24 +70,47 @@ RSpec.describe QuestionsController, type: :controller do
 
     before { expect(Question).to receive(:find).with(question.id.to_s).and_return(question) }
 
-    context 'success' do
-      before { expect(question).to receive(:update).and_return(true) }
+    context 'is current user' do
 
-      before { merge_header }
+      before do
+        expect(user).to receive_message_chain(:id, :==)
+          .with(no_args).with(question.id)
+          .and_return(true)
+      end
 
-      before { put :update, params: params, format: :json }
+      context '.update success' do
+        before { expect(question).to receive(:update).and_return(true) }
 
-      it { should render_template :update }
+        before { merge_header }
+
+        before { put :update, params: params, format: :json }
+
+        it { should render_template :update }
+      end
+
+      context '.update fail' do
+        before { expect(question).to receive(:update).and_return(false) }
+
+        before { merge_header }
+
+        before { put :update, params: params, format: :json }
+
+        it { should render_template :errors }
+      end
     end
 
-    context 'fail' do
-      before { expect(question).to receive(:update).and_return(false) }
+    context 'is another user' do
+      before do
+        expect(user).to receive_message_chain(:id, :==)
+          .with(no_args).with(question.id)
+          .and_return(false)
+      end
 
       before { merge_header }
 
       before { put :update, params: params, format: :json }
 
-      it { should render_template :errors }
+      it { expect(response).to have_http_status(403) }
     end
   end
 

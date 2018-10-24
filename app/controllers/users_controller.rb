@@ -7,6 +7,6 @@ class UsersController < BaseController
   end
 
   def collection
-    @users = User.all
+    @users = User.all.order('reputation DESC')
   end
 end

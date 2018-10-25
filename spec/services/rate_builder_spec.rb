@@ -43,14 +43,6 @@ RSpec.describe RateBuilder do
   describe '#build' do
     before { set_patent }
 
-    before { expect(Rate).to receive(:exists?).with(rate_params).and_return(false) }
-
-    before do
-      expect(answer).to receive_message_chain(:user_id, :==)
-        .with(no_args).with(user.id)
-        .and_return(false)
-    end
-
     before do
       expect(answer).to receive_message_chain(:rate, :new)
         .with(permitted_params)

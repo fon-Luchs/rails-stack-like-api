@@ -50,7 +50,7 @@ RSpec.describe RatesController, type: :controller do
     before do
       expect(RateBuilder).to receive(:new)
         .with(user, controller_params, permitted_params)
-        .and_return(rate_builder)
+        .and_return(rate_builder).twice
     end
 
     before { expect(rate_builder).to receive(:build!).and_return(rate) }

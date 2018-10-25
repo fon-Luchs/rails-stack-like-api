@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'GetQustionsCollection', type: :request do
-  before { create_list(:question, 3, :with_answers) }
+  before { create_list(:question, 1, :with_answers) }
 
-  let(:headers) { { 'Accept' => 'application/json' } }
+  let(:user) { create(:user, :with_auth_token, :with_questions_and_answers)}
+
+  let(:value) { user.auth_token.value }
+
+  let(:headers) { { 'Authorization' => "Token token=#{value}", 'Content-type' => 'application/json', 'Accept' => 'application/json' } }
 
   let(:questions_collection) do
     Question.all.order('rating DESC').map do |question|
@@ -20,8 +24,8 @@ RSpec.describe 'GetQustionsCollection', type: :request do
         "answers" => question.answers.order('rating DESC').map do |answer|
             {
               "id" => answer.id,
-              "rating" => answer.rating,
               "body" => answer.body,
+              "rating" => answer.rating,
               "author" => {
                 "id" => answer.user.id,
                 "reputation" => answer.user.reputation,

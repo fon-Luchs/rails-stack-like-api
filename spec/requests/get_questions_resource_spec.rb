@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe 'GetQuestionsResource', type: :request do
   let!(:question) { create(:question, :with_answers, id: 1) }
 
-  let(:headers) { { 'Accept' => 'application/json' } }
+  let(:user) { create(:user, :with_auth_token, :with_questions_and_answers)}
+
+  let(:value) { user.auth_token.value }
+
+  let(:headers) { { 'Authorization' => "Token token=#{value}", 'Content-type' => 'application/json', 'Accept' => 'application/json' } }
+
 
   let(:answers) do
     question.answers.order('rating DESC').map do |answer|

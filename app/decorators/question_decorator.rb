@@ -19,7 +19,7 @@ class QuestionDecorator < Draper::Decorator
       body: object.body,
       rating: object.rating,
       author: author,
-      answers: answers
+      answers: answers.sort_by!(&:rating).reverse!
     }
   end
 

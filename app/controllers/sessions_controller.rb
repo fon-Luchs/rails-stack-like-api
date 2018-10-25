@@ -1,6 +1,10 @@
 class SessionsController < BaseController
   skip_before_action :authenticate!, only: :create
 
+  def create
+    render json: 'UNKNOW USER', status: 422 unless resource.save
+  end
+
   def destroy
     @session = current_user
     @session.auth_token.destroy

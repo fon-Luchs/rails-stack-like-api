@@ -11,7 +11,7 @@ FactoryBot.define do
 
   trait :with_answers do
     after :create do |question|
-      create_list :answer, 2, question: question
+      create_list :answer, 1, question: question
     end
   end
 end

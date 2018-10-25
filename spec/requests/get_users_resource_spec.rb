@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'GetUsersResource', type: :request do
-  let!(:user) { create(:user, :with_questions_and_answers, id: 1) }
+  let!(:user) { create(:user, :with_auth_token, :with_questions_and_answers, id: 1) }
 
-  let(:headers) { { 'Accept' => 'application/json' } }
+  let(:value) { user.auth_token.value }
+
+  let(:headers) { { 'Authorization' => "Token token=#{value}", 'Content-type' => 'application/json', 'Accept' => 'application/json' } }
 
   let(:self_questions) do
     user.questions.order('rating DESC').map do |question|
@@ -37,7 +39,7 @@ RSpec.describe 'GetUsersResource', type: :request do
   end
 
   context 'user was not found' do
-    before { get '/users/3', params: {} , headers: headers }
+    before { get '/users/7', params: {} , headers: headers }
 
     it('returns HTTP Status Code 404') { expect(response).to have_http_status 404 }
   end

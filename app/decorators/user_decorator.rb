@@ -11,7 +11,7 @@ class UserDecorator < Draper::Decorator
     answers_arr = answers
     ans_question = []
     answers_arr.each { |a| ans_question << a.question }
-    ans_question
+    ans_question.sort_by!(&:rating).reverse!
   end
 
   def params
@@ -22,8 +22,8 @@ class UserDecorator < Draper::Decorator
       last_name: object.last_name,
       reputation: object.reputation,
       name: name,
-      self_questions: questions,
-      self_answers: answers,
+      self_questions: questions.sort_by!(&:rating).reverse!,
+      self_answers: answers.sort_by!(&:rating).reverse!,
       questions_count: object.questions.count,
       answers_count: object.answers.count,
       answered_questions: answered_questions

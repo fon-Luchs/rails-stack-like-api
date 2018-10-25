@@ -3,7 +3,11 @@ require 'rails_helper'
 RSpec.describe 'GetQuestionAnswersCollection', type: :request do
   let!(:question) { create(:question, :with_answers, id: 1) }
 
-  let(:headers) { { 'Accept' => 'application/json' } }
+  let(:user) { create(:user, :with_auth_token, :with_questions_and_answers)}
+
+  let(:value) { user.auth_token.value }
+
+  let(:headers) { { 'Authorization' => "Token token=#{value}", 'Content-type' => 'application/json', 'Accept' => 'application/json' } }
 
   let(:answers) do
     question.answers.order('rating DESC').map do |answer|
@@ -29,7 +33,7 @@ RSpec.describe 'GetQuestionAnswersCollection', type: :request do
   end
 
   context 'question was not found' do
-    before { get '/questions/3/answers', params: {} , headers: headers }
+    before { get '/questions/9/answers', params: {} , headers: headers }
 
     it('returns HTTP Status Code 404') { expect(response).to have_http_status 404 }
   end

@@ -31,7 +31,9 @@ RSpec.describe SessionsController, type: :controller do
 
       before { post :create, params: params, format: :json }
 
-      it { should render_template :errors }
+      it { expect(response).to have_http_status(422) }
+
+      it { expect(response.body).to eq('UNKNOW USER') }
     end
   end
 

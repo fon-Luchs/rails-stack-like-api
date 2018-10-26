@@ -37,7 +37,7 @@ RSpec.describe RateCounter do
 
   describe '#set_reputation' do
     context '.increment' do
-      before { expect(rate_counter).to receive(:set_rating) }
+      before { expect(rate_counter).to receive(:rating_calculation!) }
 
       before { expect(rate).to receive(:positive?).and_return(true) }
 
@@ -49,12 +49,12 @@ RSpec.describe RateCounter do
     end
 
     context '.decrement' do
-      before { expect(rate_counter).to receive(:set_rating) }
+      before { expect(rate_counter).to receive(:rating_calculation!) }
 
       before { expect(rate).to receive(:positive?).and_return(false) }
 
       before do
-        expect(answer).to receive(:increment).with(:rating)
+        expect(answer).to receive(:decrement).with(:rating)
       end
 
       it { expect { answer }.to change { answer.rating }.by(1) }
@@ -63,7 +63,7 @@ RSpec.describe RateCounter do
 
   describe '#set_rating' do
     context '.increment' do
-      before { expect(rate_counter).to receive(:set_reputation) }
+      before { expect(rate_counter).to receive(:rating_calculation!) }
 
       before { expect(rate).to receive(:positive?).and_return(true) }
 
@@ -75,12 +75,12 @@ RSpec.describe RateCounter do
     end
 
     context '.decrement' do
-      before { expect(rate_counter).to receive(:set_reputation) }
+      before { expect(rate_counter).to receive(:rating_calculation!) }
 
       before { expect(rate).to receive(:positive?).and_return(false) }
 
       before do
-        expect(rate.user).to receive(:increment).with(:reputation)
+        expect(rate.user).to receive(:decrement).with(:reputation)
       end
 
       it { expect { rate.user }.to change { rate.user.reputation }.by(1) }

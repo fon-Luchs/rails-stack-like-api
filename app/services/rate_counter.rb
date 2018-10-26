@@ -6,7 +6,7 @@ class RateCounter
     @user = User.find(@parent.user_id)
   end
 
-  def set_counter!
+  def rating_calculation!
     set_rating
     set_reputation
   end

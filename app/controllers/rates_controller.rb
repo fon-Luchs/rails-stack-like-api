@@ -10,7 +10,7 @@ class RatesController < BaseController
   private
 
   def resource
-    @rate ||= rate_builder.build!
+    @rate = rate_builder.build!
     @rate
   end
 

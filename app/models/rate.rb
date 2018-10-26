@@ -11,6 +11,6 @@ class Rate < ApplicationRecord
   private
 
   def run_rate
-    RateCounter.new(self).set_counter!
+    RateCounter.new(self).rating_calculation!
   end
 end

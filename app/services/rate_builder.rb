@@ -12,7 +12,7 @@ class RateBuilder
   end
 
   def check_rate
-    Rate.exists?(rate_params) && @parent.user_id == @current_user.id
+    Rate.exists?(rate_params) || @parent.user_id == @current_user.id
   end
 
   private
